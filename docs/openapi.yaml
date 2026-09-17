@@ -1,0 +1,101 @@
+openapi: 3.0.0
+info:
+  title: Proof Of Learn API
+  version: 1.0.0
+  description: The REST API for Proof Of Learn platform.
+servers:
+  - url: /api
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []
+paths:
+  /auth/me:
+    get:
+      summary: Get current authenticated user
+      responses:
+        '200':
+          description: Successful response
+  /projects:
+    get:
+      summary: List all projects
+      parameters:
+        - in: query
+          name: search
+          schema:
+            type: string
+        - in: query
+          name: category
+          schema:
+            type: string
+        - in: query
+          name: difficulty
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+  /projects/{id}:
+    get:
+      summary: Get project details
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+  /me/projects:
+    get:
+      summary: Get user's started projects
+      responses:
+        '200':
+          description: Successful response
+  /me/projects/{projectId}/start:
+    post:
+      summary: Start a project
+      parameters:
+        - in: path
+          name: projectId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+  /me/tasks/{taskId}/complete:
+    post:
+      summary: Mark a task as complete
+      parameters:
+        - in: path
+          name: taskId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+  /me/portfolio:
+    get:
+      summary: Get user's verified portfolio
+      responses:
+        '200':
+          description: Successful response
+  /me/skills:
+    get:
+      summary: Get user's skills
+      responses:
+        '200':
+          description: Successful response
+  /admin/projects:
+    post:
+      summary: Create a project (Admin only)
+      responses:
+        '200':
+          description: Successful response
