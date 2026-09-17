@@ -1,6 +1,5 @@
 import React, { createContext, useContext, ReactNode } from "react";
 import { UserState, AppNotification } from "../types";
-import { useLocalStorage } from "../hooks/useLocalStorage";
 import { fetchWithAuth } from '../lib/api';
 import { useAuth } from './AuthContext';
 

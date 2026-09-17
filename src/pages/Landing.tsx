@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { Button } from "@/src/components/ui/button"
+import { Button } from "../components/ui/button"
 import { ArrowRight, Code2, Cpu, CheckCircle2, Layout, Database } from "lucide-react"
 
 export function Landing() {

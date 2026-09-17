@@ -6,6 +6,7 @@ import authRoutes from "./src/api/auth.ts";
 import projectRoutes from "./src/api/projects.ts";
 import meRoutes from "./src/api/me.ts";
 import adminRoutes from "./src/api/admin.ts";
+import aiRoutes from "./src/api/ai.ts";
 
 async function startServer() {
   const app = express();
@@ -22,6 +23,7 @@ async function startServer() {
   app.use("/api/projects", projectRoutes);
   app.use("/api/me", meRoutes);
   app.use("/api/admin", adminRoutes);
+  app.use("/api/ai", aiRoutes);
 
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {

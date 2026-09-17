@@ -59,7 +59,7 @@ export function Workspace() {
   }
 
   if (!project) {
-    return <div className="p-8 text-center text-red-500">Project not found: {error}</div>
+    return <div className="p-8 text-center text-red-500">Project not found</div>
   }
 
 

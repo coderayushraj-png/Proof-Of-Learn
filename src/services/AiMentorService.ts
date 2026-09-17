@@ -1,34 +1,24 @@
 import { Project, Task } from '../types';
 
-export interface MentorContext {
-  project: Project;
-  currentTask: Task;
-  studentProgress: number;
-  completedTasks: string[];
-  testResults: any[];
-  conversationHistory: any[];
-}
-
-export interface MentorResponse {
-  message: string;
-  suggestedActions: string[];
-  hintLevel: 'subtle' | 'direct' | 'solution';
-}
-
 export class AiMentorService {
-  /**
-   * Generates a response from the AI Mentor based on the student's current context.
-   * This is a service abstraction ready to be connected to an actual AI provider (e.g., Gemini).
-   */
-  async getAdvice(context: MentorContext, userMessage: string): Promise<MentorResponse> {
-    // TODO: Connect to AI Provider (e.g. Gemini)
-    // For now, return a placeholder response
-    
-    return {
-      message: "I am your AI Mentor. I can see you're working on " + context.project.title + ". How can I help you?",
-      suggestedActions: ["Help me understand the objective", "Give me a subtle hint"],
-      hintLevel: 'subtle'
-    };
+  async getAdvice(project: Project, task: Task | undefined, userMessage: string): Promise<string> {
+    try {
+      // Assuming a token might be needed if the AI endpoint was protected
+      // For now it's open, but we can pass token if needed.
+      const res = await fetch('/api/ai/mentor', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: userMessage, context: { project, task } })
+      });
+      if (!res.ok) {
+        throw new Error("Failed to fetch advice");
+      }
+      const data = await res.json();
+      return data.message;
+    } catch (e) {
+      console.error(e);
+      return "Sorry, I'm having trouble thinking right now. Please try again.";
+    }
   }
 }
 
