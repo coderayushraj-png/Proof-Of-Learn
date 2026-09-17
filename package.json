@@ -11,7 +11,8 @@
     "lint": "tsc --noEmit",
     "start": "node dist/server.cjs",
     "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "db:seed": "tsx src/db/seed.ts"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
