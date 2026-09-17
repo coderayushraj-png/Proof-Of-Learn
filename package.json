@@ -10,8 +10,8 @@
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
     "start": "node dist/server.cjs",
-    "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio",
+    "db:push": "drizzle-kit push --config=src/db/drizzle.config.ts",
+    "db:studio": "drizzle-kit studio --config=src/db/drizzle.config.ts",
     "db:seed": "tsx src/db/seed.ts"
   },
   "dependencies": {
