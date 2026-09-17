@@ -41,7 +41,7 @@ export function Dashboard() {
     const completedTasks = userState.completedTasks[id] || []
     return {
       ...project,
-      progress: project ? Math.round((completedTasks.length / (project.tasks?.length || project.taskCount || 1)) * 100) : 0,
+      progress: project ? Math.min(100, Math.round((completedTasks.length / (project.tasks?.length || project.taskCount || Math.max(completedTasks.length, 1))) * 100)) : 0,
       completedTasks,
       isCompleted: userState.completedProjects.includes(id)
     }
@@ -107,9 +107,9 @@ export function Dashboard() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {startedProjectsDetails.map((proj: any) => (
               <div key={proj.id} className="bg-background border border-border p-6 rounded-xl flex flex-col hover:shadow-sm transition-shadow">
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="font-bold text-xl">{proj.title}</h3>
-                  <span className="text-xs font-bold px-2 py-1 bg-muted rounded text-muted-foreground">
+                <div className="flex justify-between items-start mb-4 gap-3">
+                  <h3 className="font-bold text-xl line-clamp-1">{proj.title}</h3>
+                  <span className="text-xs font-bold px-2 py-1 bg-muted rounded text-muted-foreground shrink-0">
                     {proj.completedTasks.length} / {proj.tasks?.length || proj.taskCount || 0} Tasks
                   </span>
                 </div>
@@ -119,8 +119,8 @@ export function Dashboard() {
                     <span>Progress</span>
                     <span>{proj.progress}%</span>
                   </div>
-                  <div className="w-full bg-muted rounded-full h-2">
-                    <div className="bg-primary h-2 rounded-full transition-all duration-500" style={{ width: `${proj.progress}%` }}></div>
+                  <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
+                    <div className="bg-primary h-full rounded-full transition-all duration-500" style={{ width: `${Math.min(proj.progress, 100)}%` }}></div>
                   </div>
                 </div>
                 <div className="flex items-center justify-between mt-auto pt-4 border-t border-border">
@@ -143,9 +143,9 @@ export function Dashboard() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {recentlyCompleted.map((proj: any) => (
               <div key={proj.id} className="bg-card border border-border p-6 rounded-xl flex flex-col">
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="font-bold text-xl">{proj.title}</h3>
-                  <span className="flex items-center gap-1 text-xs font-bold px-2 py-1 bg-primary/10 text-primary rounded border border-primary/20">
+                <div className="flex justify-between items-start mb-4 gap-3">
+                  <h3 className="font-bold text-xl line-clamp-1">{proj.title}</h3>
+                  <span className="flex items-center gap-1 text-xs font-bold px-2 py-1 bg-primary/10 text-primary rounded border border-primary/20 shrink-0">
                     <CheckCircle2 className="w-3 h-3" /> VERIFIED
                   </span>
                 </div>
